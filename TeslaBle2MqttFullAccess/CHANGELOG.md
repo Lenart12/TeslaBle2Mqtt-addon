@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.5] - 2025-01-29
+
+- Correctly report addon version in Mqtt
+
 ## [0.0.4] - 2025-01-29
 
 - Add alternative full access addon for users that are experiencing problems with Bluetooth devices

@@ -16,6 +16,13 @@ optMqttPrefix=$(bashio::config 'mqtt_prefix' 'tb2m')
 optDiscoveryPrefix=$(bashio::config 'discovery_prefix' 'homeassistant')
 optLogLevel=$(bashio::config 'log_level' 'INFO')
 
+if [[ -f "/version.txt" ]]; then
+    reportedVersion=$(cat /version.txt)
+else
+    reportedVersion="dev"
+fi
+
+
 mkdir -p /data/config/key
 
 proxyBindAddress="0.0.0.0:5667"
@@ -46,6 +53,7 @@ done
     --mqtt-qos=$optMqttQos \
     --mqtt-prefix=$optMqttPrefix \
     --discovery-prefix=$optDiscoveryPrefix \
+    --reported-version=$reportedVersion \
     $vinOptions &
 tb2mPid=$!
 

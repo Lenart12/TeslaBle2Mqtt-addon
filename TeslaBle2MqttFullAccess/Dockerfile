@@ -16,14 +16,19 @@ RUN git clone https://github.com/Lenart12/TeslaBleHttpProxy.git /build/TeslaBleH
 # Build TeslaBle2Mqtt from source
 RUN git clone https://github.com/Lenart12/TeslaBle2Mqtt.git /build/TeslaBle2Mqtt \
     && cd /build/TeslaBle2Mqtt \
-    && git checkout bb248d5d7d1977fce660856431c50b2d050d0aea \
+    && git checkout 4c1ee48d57870f9014112e6cd50cabcc9731c1bd \
     && go build -o /usr/local/bin/TeslaBle2Mqtt
 
-# Clean up
-RUN rm -rf /build
-
+    
 # Copy data for add-on
 COPY run.sh /
 RUN chmod a+x /run.sh
 
+# Get version from config.yaml and set it in /data/version.txt
+COPY config.yaml /build/config.yaml
+RUN sed -n 's/version: "\(.*\)"/\1/p' /build/config.yaml > /version.txt
+
+# Clean up
+RUN rm -rf /build
+    
 CMD [ "/run.sh" ]
