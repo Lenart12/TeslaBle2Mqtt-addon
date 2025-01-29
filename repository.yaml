@@ -1,0 +1,4 @@
+# https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
+name: Tesla Ble to Mqtt add-on repository
+url: 'https://github.com/Lenart12/TeslaBle2Mqtt-addon'
+maintainer: Lenart12 <koslenart@gmail.com>
