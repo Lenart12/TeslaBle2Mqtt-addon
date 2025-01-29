@@ -1,0 +1,48 @@
+---
+configuration:
+  vins:
+    name: VINs
+    description: >-
+      A list of VINs to scan for. At least one VIN is required, but multiple can be
+      specified. The VINs must be in uppercase and 17 characters long.
+  scan_timeout:
+    name: Scan timeout
+    description: >-
+      The time in seconds to scan for BLE devices. The default is 1 second.
+      If a value of 0 is provided, the scan will run as long as it can.
+  poll_interval:
+    name: Poll interval
+    description: >-
+      The time in seconds to poll the vehicle for data. The default is 60 seconds.
+  poll_interval_charging:
+    name: Poll interval while charging
+    description: >-
+      The time in seconds to poll the vehicle for data while charging. The default is 20 seconds.
+  mqtt_host:
+    name: MQTT host
+    description: The hostname or IP address of the MQTT broker.
+  mqtt_port:
+    name: MQTT port
+    description: The port of the MQTT broker. The default is 1883.
+  mqtt_user:
+    name: MQTT username
+    description: The username to authenticate with the MQTT broker.
+  mqtt_pass:
+    name: MQTT password
+    description: The password to authenticate with the MQTT broker.
+  mqtt_qos:
+    name: MQTT QoS
+    description: The quality of service level to use for MQTT messages. The default is 0.
+  mqtt_prefix:
+    name: MQTT prefix
+    description: >-
+      The prefix to use for MQTT topics. The default is `tb2m`. The prefix must
+      only contain alphanumeric characters, dashes, and underscores.
+  discovery_prefix:
+    name: Discovery prefix
+    description: >-
+      The prefix to use for Home Assistant MQTT discovery topics. The default is
+      `homeassistant`.
+  log_level:
+    name: Log level
+    description: The log level to use. The default is `INFO`.
