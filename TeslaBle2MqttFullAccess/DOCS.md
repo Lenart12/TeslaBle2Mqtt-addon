@@ -14,6 +14,14 @@ A list of VINs to scan for. At least one VIN is required, but multiple can be sp
 **Description:**  
 The time in seconds to scan for BLE devices. The default is 1 second. If a value of 0 is provided, the scan will run as long as it can.
 
+**Name:** Poll interval
+**Description**
+The time in seconds to poll the vehicle for data. The default is 60 seconds.
+
+**Name:** Poll interval while charging
+**Description:**
+The time in seconds to poll the vehicle for data while charging. The default is 20 seconds.
+
 **Name:** MQTT host  
 **Description:**  
 The hostname or IP address of the MQTT broker.
