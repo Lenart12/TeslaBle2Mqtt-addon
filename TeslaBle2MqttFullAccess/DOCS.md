@@ -16,7 +16,7 @@ The time in seconds to scan for BLE devices. The default is 1 second. If a value
 
 **Name:** Poll interval
 **Description**
-The time in seconds to poll the vehicle for data. The default is 60 seconds.
+The time in seconds to poll the vehicle for data. The default is 90 seconds.
 
 **Name:** Poll interval while charging
 **Description:**
