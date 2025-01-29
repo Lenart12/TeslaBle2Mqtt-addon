@@ -35,6 +35,8 @@ schema:
   mqtt_pass: password
 
   scan_timeout: int?
+  poll_interval: int?
+  poll_interval_charging: int?
   mqtt_port: port?
   mqtt_qos: list(0|1|2)?
   mqtt_prefix: match(^[-\w\d_]+$)?

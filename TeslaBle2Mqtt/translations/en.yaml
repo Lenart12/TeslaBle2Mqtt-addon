@@ -10,6 +10,14 @@ configuration:
     description: >-
       The time in seconds to scan for BLE devices. The default is 1 second.
       If a value of 0 is provided, the scan will run as long as it can.
+  poll_interval:
+    name: Poll interval
+    description: >-
+      The time in seconds to poll the vehicle for data. The default is 60 seconds.
+  poll_interval_charging:
+    name: Poll interval while charging
+    description: >-
+      The time in seconds to poll the vehicle for data while charging. The default is 20 seconds.
   mqtt_host:
     name: MQTT host
     description: The hostname or IP address of the MQTT broker.

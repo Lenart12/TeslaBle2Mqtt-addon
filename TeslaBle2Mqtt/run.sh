@@ -4,7 +4,9 @@
 bashio::log.info "Starting TeslaBle2Mqtt"
 
 optVins=$(bashio::config 'vins')
-scanTimeout=$(bashio::config 'scan_timeout' '1')
+optScanTimeout=$(bashio::config 'scan_timeout' '1')
+optPollInterval=$(bashio::config 'poll_interval' '90')
+optPollIntervalCharging=$(bashio::config 'poll_interval_charging' '20')
 optMqttHost=$(bashio::config 'mqtt_host')
 optMqttPort=$(bashio::config 'mqtt_port' '1883')
 optMqttUser=$(bashio::config 'mqtt_user')
@@ -19,7 +21,7 @@ mkdir -p /data/config/key
 proxyBindAddress="0.0.0.0:5667"
 
 /usr/local/bin/TeslaBleHttpProxy \
-    --scanTimeout=$scanTimeout \
+    --scanTimeout=$optScanTimeout \
     --logLevel=$optLogLevel \
     --keys=/data/config/key \
     --httpListenAddress=$proxyBindAddress &
@@ -34,6 +36,8 @@ done
 # Start TeslaBle2Mqtt
 /usr/local/bin/TeslaBle2Mqtt \
     --proxy-host=http://$proxyBindAddress \
+    --poll-interval=$optPollInterval \
+    --poll-interval-charging=$optPollIntervalCharging \
     --log-level=$optLogLevel \
     --mqtt-host=$optMqttHost \
     --mqtt-port=$optMqttPort \
