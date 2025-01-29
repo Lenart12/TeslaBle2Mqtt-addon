@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.4] - 2025-01-29
+
+- Add alternative full access addon for users that are experiencing problems with Bluetooth devices
+
 ## [0.0.3] - 2025-01-29
 
 - Add configuration for poll interval and poll interval while charging

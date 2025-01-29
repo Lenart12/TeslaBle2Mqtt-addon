@@ -1,7 +1,7 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: "Tesla Ble to Mqtt"
 description: "Application to monitor and control Tesla vehicles over BLE with Home assistant"
-version: "0.0.2"
+version: "0.0.4"
 slug: "tb2m"
 init: false
 url: https://github.com/Lenart12/TeslaBle2Mqtt-addon
@@ -42,4 +42,3 @@ schema:
   mqtt_prefix: match(^[-\w\d_]+$)?
   discovery_prefix: str?
   log_level: list(DEBUG|INFO|WARN|ERROR|FATAL)?
-
