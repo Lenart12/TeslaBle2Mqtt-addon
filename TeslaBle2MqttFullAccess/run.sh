@@ -24,7 +24,9 @@ selfSlug=$(bashio::addons "self" "addons.self.slug" '.slug')
 # Ingress configuration
 ingressUrl=$(bashio::addon.ingress_entry)
 ingressPort=$(bashio::addon.ingress_port)
-configUrl="/hassio/ingress/$selfSlug"
+# FIXME: Find the actual host of HA, because /hassio/ingress/ is not
+#       a valid URL without scheme and host...
+configUrl="http://homeassistant.local/hassio/ingress/$selfSlug"
 
 # Ingress proxy
 mkdir -p /etc/nginx/http.d

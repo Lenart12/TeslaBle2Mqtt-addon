@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.11] - 2025-01-30
+
+- Temporary fix for configuration url not allowing TB2M device to show up in Mqtt devices
+
 ## [0.0.10] - 2025-01-30
 
 - Allow setting cache max age for api responses (`Cache-Control` header)
