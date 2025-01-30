@@ -16,6 +16,10 @@ A list of VINs to scan for. At least one VIN is required, but multiple can be sp
 **Description:**  
 The time in seconds to scan for BLE devices. The default is 1 second. If a value of 0 is provided, the scan will run as long as it can.
 
+**Name:** Cache max age  
+**Description:**  
+The maximum age in seconds to cache data. The default is 60 seconds. Set to 0 to dissalow caching.
+
 **Name:** Proxy port  
 **Description:**  
 The port on which the proxy will bind to. Default is 5667.

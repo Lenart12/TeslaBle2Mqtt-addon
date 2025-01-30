@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.10] - 2025-01-30
+
+- Allow setting cache max age for api responses (`Cache-Control` header)
+
 ## [0.0.9] - 2025-01-30
 
 - Allow proxy port to be configured and expose its dashboard via HA Ingress panel.

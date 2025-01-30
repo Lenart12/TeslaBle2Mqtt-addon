@@ -4,6 +4,7 @@
 optVins=$(bashio::config 'vins')
 optProxyPort=$(bashio::config 'proxy_port' '5667')
 optScanTimeout=$(bashio::config 'scan_timeout' '1')
+optCacheMaxAge=$(bashio::config 'cache_max_age' '5')
 optPollInterval=$(bashio::config 'poll_interval' '90')
 optPollIntervalCharging=$(bashio::config 'poll_interval_charging' '20')
 optMqttHost=$(bashio::config 'mqtt_host')
@@ -62,6 +63,7 @@ mkdir -p /data/config/key
     --scanTimeout=$optScanTimeout \
     --logLevel=$optLogLevel \
     --keys=/data/config/key \
+    --cacheMaxAge=$optCacheMaxAge \
     --httpListenAddress=":$optProxyPort" &
 proxyPid=$!
 

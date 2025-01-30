@@ -10,6 +10,10 @@ configuration:
     description: >-
       The time in seconds to scan for BLE devices. The default is 1 second.
       If a value of 0 is provided, the scan will run as long as it can.
+  cache_max_age:
+    name: Cache max age
+    description: >-
+      The maximum age in seconds to cache data. The default is 5 seconds. Set to 0 to disallow caching.
   proxy_port:
     name: Proxy port
     description: >-
