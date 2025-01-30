@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.6] - 2025-01-30
 
-- Show timestamp as duration instead of seconds
+- Show uptime as duration instead of seconds
 
 ## [0.0.5] - 2025-01-29
 
