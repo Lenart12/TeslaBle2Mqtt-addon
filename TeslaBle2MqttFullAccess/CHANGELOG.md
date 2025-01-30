@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.7] - 2025-01-30
+
+- Show uptime in hours instead, as duration was filling up the logbook
+
 ## [0.0.6] - 2025-01-30
 
 - Show uptime as duration instead of seconds
