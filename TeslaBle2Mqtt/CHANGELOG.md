@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.8] - 2025-01-30
+
+- Fix climate mode showing as `off`  instead of `unknown` after vehicle is asleep
+
 ## [0.0.7] - 2025-01-30
 
 - Show uptime in hours instead, as duration was filling up the logbook
