@@ -1,9 +1,8 @@
 #!/usr/bin/with-contenv bashio
 
-# Start the proxy
-bashio::log.info "Starting TeslaBle2Mqtt"
-
+# Read options from the configuration
 optVins=$(bashio::config 'vins')
+optProxyPort=$(bashio::config 'proxy_port' '5667')
 optScanTimeout=$(bashio::config 'scan_timeout' '1')
 optPollInterval=$(bashio::config 'poll_interval' '90')
 optPollIntervalCharging=$(bashio::config 'poll_interval_charging' '20')
@@ -16,22 +15,54 @@ optMqttPrefix=$(bashio::config 'mqtt_prefix' 'tb2m')
 optDiscoveryPrefix=$(bashio::config 'discovery_prefix' 'homeassistant')
 optLogLevel=$(bashio::config 'log_level' 'INFO')
 
-if [[ -f "/version.txt" ]]; then
-    reportedVersion=$(cat /version.txt)
-else
-    reportedVersion="dev"
-fi
+# Addon information
+selfRepo=$(bashio::addon.repository)
+reportedVersion=$(bashio::addon.version)
+selfSlug=$(bashio::addons "self" "addons.self.slug" '.slug')
 
+# Ingress configuration
+ingressUrl=$(bashio::addon.ingress_entry)
+ingressPort=$(bashio::addon.ingress_port)
+configUrl="/hassio/ingress/$selfSlug"
+
+# Ingress proxy
+mkdir -p /etc/nginx/http.d
+cat <<EOF > /etc/nginx/http.d/ingress.conf
+server {
+    listen $ingressPort;
+    allow 172.30.32.2;
+    deny all;
+    location / {
+        proxy_pass http://localhost:$optProxyPort/;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+}
+EOF
+
+# Start nginx
+nginx -c /etc/nginx/nginx.conf
+
+bashio::log.info "Starting TeslaBle2Mqtt v$reportedVersion"
+
+bashio::log.info "VINs: $optVins"
+bashio::log.info "Slug: $selfSlug"
+bashio::log.info "Configuration url: $configUrl"
+bashio::log.info "Ingress url: $(bashio::addon.ingress_url)"
+bashio::log.info "Ingress ent: $(bashio::addon.ingress_entry)"
+bashio::log.info "Repo: $(bashio::addon.repository)"
+bashio::log.info "Hostname: $(bashio::addon.hostname)"
 
 mkdir -p /data/config/key
 
-proxyBindAddress="0.0.0.0:5667"
-
+# Start the proxy
 /usr/local/bin/TeslaBleHttpProxy \
     --scanTimeout=$optScanTimeout \
     --logLevel=$optLogLevel \
     --keys=/data/config/key \
-    --httpListenAddress=$proxyBindAddress &
+    --httpListenAddress=":$optProxyPort" &
 proxyPid=$!
 
 # Convert the VINs to multiple -v options
@@ -42,7 +73,7 @@ done
 
 # Start TeslaBle2Mqtt
 /usr/local/bin/TeslaBle2Mqtt \
-    --proxy-host=http://$proxyBindAddress \
+    --proxy-host=http://localhost:$optProxyPort \
     --poll-interval=$optPollInterval \
     --poll-interval-charging=$optPollIntervalCharging \
     --log-level=$optLogLevel \
@@ -54,6 +85,8 @@ done
     --mqtt-prefix=$optMqttPrefix \
     --discovery-prefix=$optDiscoveryPrefix \
     --reported-version=$reportedVersion \
+    --reported-config-url=$configUrl \
+    --reset-discovery \
     $vinOptions &
 tb2mPid=$!
 

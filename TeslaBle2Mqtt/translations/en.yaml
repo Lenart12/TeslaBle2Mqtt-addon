@@ -10,6 +10,10 @@ configuration:
     description: >-
       The time in seconds to scan for BLE devices. The default is 1 second.
       If a value of 0 is provided, the scan will run as long as it can.
+  proxy_port:
+    name: Proxy port
+    description: >-
+      The port to use for the proxy server. Default is 5667.
   poll_interval:
     name: Poll interval
     description: >-

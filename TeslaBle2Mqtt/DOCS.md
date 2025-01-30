@@ -2,7 +2,9 @@
 
 ## Quick start guide
 
-After installing this addon configure the settings according to their instructions and start the addon. After the addon is running open the web ui on port 5667. If you are running your home assistant behind a reverse proxy you might be unable to connect directly, so you need to connect to `http://{local-ha-ip}:5667/dashboard`. After this follow the key-pairing instructions listed [here](https://github.com/wimaha/TeslaBleHttpProxy?tab=readme-ov-file#generate-key-for-vehicle).
+Install this addon and configure its settings according to their instructions and start the addon. When it is running open the web ui and follow the key-pairing instructions listed [here](https://github.com/wimaha/TeslaBleHttpProxy?tab=readme-ov-file#generate-key-for-vehicle). When you have successfuly added your keys restart the addon.
+
+If you are having issues with bluetooth device not working, try the full access version of the addon.
 
 ## Configuration
 
@@ -13,6 +15,10 @@ A list of VINs to scan for. At least one VIN is required, but multiple can be sp
 **Name:** Scan timeout  
 **Description:**  
 The time in seconds to scan for BLE devices. The default is 1 second. If a value of 0 is provided, the scan will run as long as it can.
+
+**Name:** Proxy port  
+**Description:**  
+The port on which the proxy will bind to. Default is 5667.
 
 **Name:** Poll interval  
 **Description**  
