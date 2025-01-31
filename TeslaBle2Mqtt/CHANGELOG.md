@@ -2,13 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.13] - 2025-01-30
+## [0.0.14] - 2025-01-31
+
+- Fix typo in configuration url
+
+## [0.0.13] - 2025-01-31
 
 - Fix charge cable connected showing always connected
 - Always show error related sensors (Last error, clear error)
 - Fix config url to redirect to correct homeassistant
 
-## [0.0.12] - 2025-01-30
+## [0.0.12] - 2025-01-31
 
 - More leniant json body errors regarding unexpected api requests
 - Wait for proxy start before launching TeslaBle2Mqtt to not cause errors on boot
