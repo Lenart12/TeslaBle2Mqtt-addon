@@ -1,8 +1,15 @@
 #!/usr/bin/with-contenv bashio
 
+# Check if port is already in use
+optProxyPort=$(bashio::config 'proxy_port' '5667')
+
+if netstat -tunl | grep -E ":$optProxyPort\b"; then
+    bashio::log.fatal "Port $optProxyPort is already in use"
+    exit 1
+fi
+
 # Read options from the configuration
 optVins=$(bashio::config 'vins')
-optProxyPort=$(bashio::config 'proxy_port' '5667')
 optScanTimeout=$(bashio::config 'scan_timeout' '1')
 optLogLevel=$(bashio::config 'log_level' 'INFO')
 optCacheMaxAge=$(bashio::config 'cache_max_age' '5')
