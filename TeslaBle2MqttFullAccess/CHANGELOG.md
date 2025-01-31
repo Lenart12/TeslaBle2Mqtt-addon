@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.13] - 2025-01-30
+
+- Fix charge cable connected showing always connected
+- Always show error related sensors (Last error, clear error)
+- Fix config url to redirect to correct homeassistant
+
 ## [0.0.12] - 2025-01-30
 
 - More leniant json body errors regarding unexpected api requests
