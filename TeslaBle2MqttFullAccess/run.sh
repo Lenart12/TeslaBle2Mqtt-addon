@@ -31,7 +31,7 @@ selfSlug=$(bashio::addons "self" "addons.self.slug" '.slug')
 # Ingress configuration
 ingressUrl=$(bashio::addon.ingress_entry)
 ingressPort=$(bashio::addon.ingress_port)
-configUrl="homeasistant://hassio/ingress/$selfSlug"
+configUrl="homeassistant://hassio/ingress/$selfSlug"
 
 # Ingress proxy
 mkdir -p /etc/nginx/http.d
