@@ -1,8 +1,15 @@
 #!/usr/bin/with-contenv bashio
 
+# Check if port is already in use
+optProxyPort=$(bashio::config 'proxy_port' '5667')
+
+if netstat -tunl | grep -E ":$optProxyPort\b"; then
+    bashio::log.fatal "Port $optProxyPort is already in use"
+    exit 1
+fi
+
 # Read options from the configuration
 optVins=$(bashio::config 'vins')
-optProxyPort=$(bashio::config 'proxy_port' '5667')
 optScanTimeout=$(bashio::config 'scan_timeout' '1')
 optCacheMaxAge=$(bashio::config 'cache_max_age' '5')
 optPollInterval=$(bashio::config 'poll_interval' '90')
@@ -45,9 +52,6 @@ server {
 }
 EOF
 
-# Start nginx
-nginx -c /etc/nginx/nginx.conf
-
 bashio::log.info "Starting TeslaBle2Mqtt v$reportedVersion"
 
 bashio::log.info "VINs: $optVins"
@@ -68,6 +72,17 @@ mkdir -p /data/config/key
     --cacheMaxAge=$optCacheMaxAge \
     --httpListenAddress=":$optProxyPort" &
 proxyPid=$!
+
+# Wait for the proxy to start
+timeout 5 bash -c "until nc -z localhost $optProxyPort; do sleep 0.2; done"
+proxyOk=$?
+if [ $proxyOk -ne 0 ]; then
+    bashio::log.fatal "Failed to start proxy"
+    exit 1
+fi
+
+# Start nginx
+nginx -c /etc/nginx/nginx.conf
 
 # Convert the VINs to multiple -v options
 vinOptions=""

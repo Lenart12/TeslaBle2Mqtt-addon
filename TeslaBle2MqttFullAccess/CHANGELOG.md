@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.12] - 2025-01-30
+
+- More leniant json body errors regarding unexpected api requests
+- Wait for proxy start before launching TeslaBle2Mqtt to not cause errors on boot
+
 ## [0.0.11] - 2025-01-30
 
 - Temporary fix for configuration url not allowing TB2M device to show up in Mqtt devices
