@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.18] - 2025-02-01
+
+- Fix connection always getting treated as online
+
 ## [0.0.17] - 2025-02-01
 
 - Fix crash caused by bad yaml configuration
