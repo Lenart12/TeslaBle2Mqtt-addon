@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.17] - 2025-02-01
+
+- Fix crash caused by bad yaml configuration
+
 ## [0.0.16] - 2025-02-01
 
 - Use `true` instead of `false` for `full_access` in FA version of the addon... 🤦
