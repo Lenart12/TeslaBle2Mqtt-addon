@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.15] - 2025-02-01
+
+- Do a few quick retries before marking vehicle as offline
+- Show RSSI and address as unknown when vehicle is away 
+
 ## [0.0.14] - 2025-01-31
 
 - Fix typo in configuration url
