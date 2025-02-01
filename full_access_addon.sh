@@ -25,7 +25,7 @@ sed -i 's/\(slug: "\([^"]*\)\)"/\1-full-access"/g' TeslaBle2MqttFullAccess/confi
 # Add additional options
 cat <<EOF >> TeslaBle2MqttFullAccess/config.yaml
 
-full_access: false
+full_access: true
 EOF
 # Patch README title to include full access information (# # Tesla Ble to Mqtt)
 sed -i 's/# Tesla Ble to Mqtt/# Tesla Ble to Mqtt [Full access]/g' TeslaBle2MqttFullAccess/README.md
@@ -64,7 +64,7 @@ sed -i 's/\(slug: "\([^"]*\)\)"/\1-full-access"/g' TeslaBleHttpProxyFullAccess/c
 # Add additional options
 cat <<EOF >> TeslaBleHttpProxyFullAccess/config.yaml
 
-full_access: false
+full_access: true
 EOF
 # Patch README title to include full access information (# # Tesla Ble Http Proxy)
 sed -i 's/# Tesla Ble Http Proxy/# Tesla Ble Http Proxy [Full access]/g' TeslaBleHttpProxyFullAccess/README.md

@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.16] - 2025-02-01
+
+- Use `true` instead of `false` for `full_access` in FA version of the addon... 🤦
+
 ## [0.0.15] - 2025-02-01
 
 - Do a few quick retries before marking vehicle as offline
