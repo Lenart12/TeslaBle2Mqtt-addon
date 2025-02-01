@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.19] - 2025-02-01
+
+- Improve logs with color and prefix
+
 ## [0.0.18] - 2025-02-01
 
 - Fix connection always getting treated as online

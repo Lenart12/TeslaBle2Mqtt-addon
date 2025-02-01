@@ -62,6 +62,9 @@ bashio::log.info "Hostname: $(bashio::addon.hostname)"
 
 mkdir -p /data/config/key
 
+# Set the color output for the logs
+export CLICOLOR_FORCE=1
+
 # Start the proxy
 /usr/local/bin/TeslaBleHttpProxy \
     --scanTimeout=$optScanTimeout \
@@ -103,6 +106,8 @@ done
     --discovery-prefix=$optDiscoveryPrefix \
     --reported-version=$reportedVersion \
     --reported-config-url=$configUrl \
+    --force-ansi-color \
+    --log-prefix="tb2m" \
     --reset-discovery \
     $vinOptions &
 tb2mPid=$!
