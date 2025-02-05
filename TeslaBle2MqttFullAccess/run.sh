@@ -67,7 +67,7 @@ mkdir -p /data/config/key
 export CLICOLOR_FORCE=1
 
 bdAddr=""
-if [ -n "$optBdAddr" ]; then
+if [ -n "$optBdAddr" ] && [ "$optBdAddr" != "null" ]; then
     bdAddr="--bdAddr=$optBdAddr"
 fi
 

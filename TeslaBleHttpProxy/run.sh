@@ -54,7 +54,7 @@ bashio::log.info "Configuration url: $configUrl"
 mkdir -p /data/config/key
 
 bdAddr=""
-if [ -n "$optBdAddr" ]; then
+if [ -n "$optBdAddr" ] && [ "$optBdAddr" != "null" ]; then
     bdAddr="--bdAddr=$optBdAddr"
 fi
 
