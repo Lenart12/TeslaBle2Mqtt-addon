@@ -10,7 +10,7 @@ fi
 
 # Read options from the configuration
 optVins=$(bashio::config 'vins')
-optBdAddr=$(bashio::config 'bd_addr', '')
+optBdAddr=$(bashio::config 'bd_addr' '')
 optScanTimeout=$(bashio::config 'scan_timeout' '1')
 optCacheMaxAge=$(bashio::config 'cache_max_age' '5')
 optPollInterval=$(bashio::config 'poll_interval' '90')
