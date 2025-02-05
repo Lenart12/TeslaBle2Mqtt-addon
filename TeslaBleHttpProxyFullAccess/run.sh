@@ -10,6 +10,7 @@ fi
 
 # Read options from the configuration
 optVins=$(bashio::config 'vins')
+optBdAddr=$(bashio::config 'bd_addr', '')
 optScanTimeout=$(bashio::config 'scan_timeout' '1')
 optLogLevel=$(bashio::config 'log_level' 'INFO')
 optCacheMaxAge=$(bashio::config 'cache_max_age' '5')
@@ -52,10 +53,16 @@ bashio::log.info "Configuration url: $configUrl"
 
 mkdir -p /data/config/key
 
+bdAddr=""
+if [ -n "$optBdAddr" ]; then
+    bdAddr="--bdAddr=$optBdAddr"
+fi
+
 # Start the proxy
 /usr/local/bin/TeslaBleHttpProxy \
     --scanTimeout=$optScanTimeout \
     --logLevel=$optLogLevel \
     --keys=/data/config/key \
     --cacheMaxAge=$optCacheMaxAge \
+    $bdAddr \
     --httpListenAddress=":$optProxyPort"

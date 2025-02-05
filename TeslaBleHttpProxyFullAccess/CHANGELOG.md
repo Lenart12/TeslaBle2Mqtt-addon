@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.5] - 2025-02-05
+
+- Add configuration option to allow using specific Bluetooth adapter
+
 ## [0.0.4] - 2025-02-01
 
 - Use `true` instead of `false` for `full_access` in FA version of the addon... 🤦
