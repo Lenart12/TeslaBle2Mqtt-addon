@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.21] - 2025-02-05
+
+- Improve error handling
+- Change which value gets used for battery level to match the one displayed by the app
+
 ## [0.0.20] - 2025-02-05
 
 - Add configuration option to allow using specific Bluetooth adapter
