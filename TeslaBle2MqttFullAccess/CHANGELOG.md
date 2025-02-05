@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.20] - 2025-02-05
+
+- Add configuration option to allow using specific Bluetooth adapter
+
 ## [0.0.19] - 2025-02-01
 
 - Improve logs with color and prefix

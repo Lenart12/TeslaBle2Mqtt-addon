@@ -1,7 +1,7 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: "Tesla Ble to Mqtt [Full access]"
 description: "Application to monitor and control Tesla vehicles over BLE with Home assistant [Full access version]"
-version: "0.0.19-fa"
+version: "0.0.20-fa"
 slug: "tb2m-full-access"
 init: false
 url: https://github.com/Lenart12/TeslaBle2Mqtt-addon
@@ -35,6 +35,7 @@ schema:
   mqtt_pass: password
   mqtt_qos: list(0|1|2)?
   proxy_port: port?
+  bd_addr: match(^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$)?
   scan_timeout: int?
   cache_max_age: int?
   poll_interval: int?

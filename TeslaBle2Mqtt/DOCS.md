@@ -6,6 +6,13 @@ Install this addon and configure its settings according to their instructions an
 
 If you are having issues with bluetooth device not working, try the full access version of the addon.
 
+## Multiple Bluetooth adapters
+
+It is possible to specify which BT adapter to use by configuring the `Bluetooth adapter` option with its address.
+You can find out adapter addresses by running command `sudo hciconfig` or `sudo bluetoothctl list` (Device must not be in use or it won't show). The address will be in the format of `xx:xx:xx:xx:xx:xx` (MAC address).
+> NOTE:  
+> If you have a Bluetooth version 4.x adapter there is a high chance it won't work!
+
 ## Configuration
 
 **Name:** VINs  
@@ -23,6 +30,10 @@ The maximum age in seconds to cache data. The default is 60 seconds. Set to 0 to
 **Name:** Proxy port  
 **Description:**  
 The port on which the proxy will bind to. Default is 5667.
+
+**Name:** Bluetooth adapter  
+**Description:**  
+The Bluetooth adapter to use. If not specified, the first available adapter will be used.
 
 **Name:** Poll interval  
 **Description**  
