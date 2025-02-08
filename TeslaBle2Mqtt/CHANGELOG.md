@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.23] - 2025-02-08
+
+- Revert 0.0.20 as it was causing issues
+
 ## [0.0.22] - 2025-02-08
 
 - Set Charging amps minimum value from 5A to 1A

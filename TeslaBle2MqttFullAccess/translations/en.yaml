@@ -18,10 +18,6 @@ configuration:
     name: Proxy port
     description: >-
       The port to use for the proxy server. Default is 5667.
-  bd_addr:
-    name: Bluetooth adapter
-    description: >-
-      The Bluetooth adapter to use. If not specified, the first available adapter will be used. More info in Documentation tab.
   poll_interval:
     name: Poll interval
     description: >-

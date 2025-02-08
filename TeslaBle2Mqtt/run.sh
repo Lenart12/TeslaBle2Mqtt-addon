@@ -10,7 +10,6 @@ fi
 
 # Read options from the configuration
 optVins=$(bashio::config 'vins')
-optBdAddr=$(bashio::config 'bd_addr' '')
 optScanTimeout=$(bashio::config 'scan_timeout' '1')
 optCacheMaxAge=$(bashio::config 'cache_max_age' '5')
 optPollInterval=$(bashio::config 'poll_interval' '90')
@@ -67,18 +66,12 @@ mkdir -p /data/config/key
 # Set the color output for the logs
 export CLICOLOR_FORCE=1
 
-bdAddr=""
-if [ -n "$optBdAddr" ] && [ "$optBdAddr" != "null" ]; then
-    bdAddr="--bdAddr=$optBdAddr"
-fi
-
 # Start the proxy
 /usr/local/bin/TeslaBleHttpProxy \
     --scanTimeout=$optScanTimeout \
     --logLevel=$optLogLevel \
     --keys=/data/config/key \
     --cacheMaxAge=$optCacheMaxAge \
-    $bdAddr \
     --httpListenAddress=":$optProxyPort" &
 proxyPid=$!
 
