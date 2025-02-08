@@ -1,6 +1,0 @@
----
-configuration:
-  bd_addr:
-    name: Bluetooth adapter
-    description: >-
-      The Bluetooth adapter to use. If not specified, the first available adapter will be used. Set to "00:00:00:00:00:00" to list all available adapters.
