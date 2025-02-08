@@ -25,7 +25,7 @@ The time in seconds to scan for BLE devices. The default is 1 second. If a value
 
 **Name:** Cache max age  
 **Description:**  
-The maximum age in seconds to cache data. The default is 60 seconds. Set to 0 to dissalow caching.
+The maximum age in seconds to cache data. The default is 5 seconds. Set to 0 to dissalow caching.
 
 **Name:** Proxy port  
 **Description:**  

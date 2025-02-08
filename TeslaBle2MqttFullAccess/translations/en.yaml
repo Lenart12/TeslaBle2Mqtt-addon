@@ -21,11 +21,11 @@ configuration:
   bd_addr:
     name: Bluetooth adapter
     description: >-
-      The Bluetooth adapter to use. If not specified, the first available adapter will be used.
+      The Bluetooth adapter to use. If not specified, the first available adapter will be used. More info in Documentation tab.
   poll_interval:
     name: Poll interval
     description: >-
-      The time in seconds to poll the vehicle for data. The default is 60 seconds.
+      The time in seconds to poll the vehicle for data. The default is 90 seconds.
   poll_interval_charging:
     name: Poll interval while charging
     description: >-
