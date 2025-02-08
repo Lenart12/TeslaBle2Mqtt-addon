@@ -1,7 +1,7 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: "Tesla Ble Http Proxy"
 description: "Control Tesla vehicles over BLE with Home assistant"
-version: "0.0.5"
+version: "0.0.6"
 slug: "tbhp"
 init: false
 url: https://github.com/wimaha/TeslaBleHttpProxy
@@ -19,6 +19,5 @@ ingress_port: 0
 schema:
   cache_max_age: int?
   proxy_port: port?
-  bd_addr: match(^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$)?
   scan_timeout: int?
   log_level: list(DEBUG|INFO|WARN|ERROR|FATAL)?

@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.6] - 2025-02-08
+
+- Revert 0.0.5 as it was causing issues
+
 ## [0.0.5] - 2025-02-05
 
 - Add configuration option to allow using specific Bluetooth adapter
