@@ -43,6 +43,10 @@ The time in seconds to poll the vehicle for data. The default is 90 seconds.
 **Description:**  
 The time in seconds to poll the vehicle for data while charging. The default is 20 seconds.
 
+**Name:** Max charging amps  
+**Description:**  
+The upper limit for Charging amps input sensor, can be configured from 5A-48A. The default is 16 A.
+
 **Name:** MQTT host  
 **Description:**  
 The hostname or IP address of the MQTT broker.

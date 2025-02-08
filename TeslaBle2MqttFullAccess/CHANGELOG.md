@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.22] - 2025-02-08
+
+- Set Charging amps minimum value from 5A to 1A
+- Add setting to set Charging amps max value from 5A-48A
+- Handle discovery when HA restarts
+
 ## [0.0.21] - 2025-02-05
 
 - Improve error handling

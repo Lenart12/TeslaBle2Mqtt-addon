@@ -30,6 +30,10 @@ configuration:
     name: Poll interval while charging
     description: >-
       The time in seconds to poll the vehicle for data while charging. The default is 20 seconds.
+  max_charging_amps:
+    name: Max charging amps
+    description: >-
+      The upper limit for Charging amps input sensor, can be configured from 5A-48A. The default is 16 A.
   mqtt_host:
     name: MQTT host
     description: The hostname or IP address of the MQTT broker.

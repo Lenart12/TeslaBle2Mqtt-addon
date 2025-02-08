@@ -15,6 +15,7 @@ optScanTimeout=$(bashio::config 'scan_timeout' '1')
 optCacheMaxAge=$(bashio::config 'cache_max_age' '5')
 optPollInterval=$(bashio::config 'poll_interval' '90')
 optPollIntervalCharging=$(bashio::config 'poll_interval_charging' '20')
+optMaxChargingAmps=$(bashio::config 'max_charging_amps' '16')
 optMqttHost=$(bashio::config 'mqtt_host')
 optMqttPort=$(bashio::config 'mqtt_port' '1883')
 optMqttUser=$(bashio::config 'mqtt_user')
@@ -103,6 +104,7 @@ done
     --proxy-host=http://localhost:$optProxyPort \
     --poll-interval=$optPollInterval \
     --poll-interval-charging=$optPollIntervalCharging \
+    --max-charging-amps=$optMaxChargingAmps \
     --log-level=$optLogLevel \
     --mqtt-host=$optMqttHost \
     --mqtt-port=$optMqttPort \
