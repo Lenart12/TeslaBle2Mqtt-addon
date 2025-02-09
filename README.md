@@ -2,7 +2,7 @@
 
 <img src="./TeslaBle2Mqtt/logo.png" width="300">
 
-This repository contains the Tesla Ble to Mqtt addon. Tesla Ble to Mqtt is a project that bridges Tesla data over Bluetooth low energy (BLE) to an MQTT broker. This allows you to control and monitor your Tesla vehicle using from Home assistant.
+This repository contains the Tesla Ble to Mqtt Homeassistant addon. Tesla Ble to Mqtt is a project that bridges Tesla data over Bluetooth low energy (BLE) to an MQTT broker. This allows you to control and monitor your Tesla vehicle using from Home assistant. More information and other installation methods available on the [Lenart12/TeslaBle2Mqtt](https://github.com/Lenart12/TeslaBle2Mqtt) repository.
 
 It also contains Tesla Ble Http Proxy addon for users that only want the proxy for `evcc` or other applications without the Mqtt part.
 
