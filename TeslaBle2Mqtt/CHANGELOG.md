@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.24] - 2025-02-09
+
+- Fix crash on vehicle not found error ([#5](https://github.com/Lenart12/TeslaBle2Mqtt/issues/5))
+
 ## [0.0.23] - 2025-02-08
 
 - Revert 0.0.20 as it was causing issues

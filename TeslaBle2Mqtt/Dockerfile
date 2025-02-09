@@ -18,7 +18,7 @@ RUN git clone https://github.com/Lenart12/TeslaBleHttpProxy.git /build/TeslaBleH
 # Build TeslaBle2Mqtt from source
 RUN git clone https://github.com/Lenart12/TeslaBle2Mqtt.git /build/TeslaBle2Mqtt \
     && cd /build/TeslaBle2Mqtt \
-    && git checkout 90a183affea8da5f41aa31b48fe75c857f7aca1d \
+    && git checkout 658feb58cceee95c692412d601a689b686b876f7 \
     && go build -o /usr/local/bin/TeslaBle2Mqtt
 
     
