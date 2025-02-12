@@ -1,69 +1,58 @@
-# Configuring TB2M
+# Tesla Ble to Mqtt Documentation
 
-## Quick start guide
+## Overview
+This addon allows you to connect to your Tesla vehicle via Bluetooth Low Energy (BLE) and publish the data to MQTT.
 
-Install this addon and configure its settings according to their instructions and start the addon. When it is running open the web ui and follow the key-pairing instructions listed [here](https://github.com/wimaha/TeslaBleHttpProxy?tab=readme-ov-file#generate-key-for-vehicle). When you have successfuly added your keys restart the addon.
+## Requirements
+- Home Assistant with MQTT integration
+- BlueZ installed on the host system
+- Compatible Bluetooth adapter
 
-If you are having issues with bluetooth device not working, try the full access version of the addon.
+## Quick Start Guide
+1. Install the addon
+2. Configure the settings (see Configuration section)
+3. Start the addon
+4. Open the web UI and follow the [key-pairing instructions](https://github.com/wimaha/TeslaBleHttpProxy?tab=readme-ov-file#generate-key-for-vehicle)
+5. Restart the addon after successful key pairing
 
-## Configuration
+## Configuration notes
 
-**Name:** VINs  
-**Description:**  
-A list of VINs to scan for. At least one VIN is required, but multiple can be specified. The VINs must be in uppercase and 17 characters long.
+### Required Settings
 
-**Name:** Scan timeout  
-**Description:**  
-The time in seconds to scan for BLE devices. The default is 1 second. If a value of 0 is provided, the scan will run as long as it can.
+- **VINs**: List of vehicle identification numbers (VINs) to connect to. You can find the VIN in the Tesla app or on the vehicle itself. Multiple VINs can be added to the list.
+- If you have something *like* Mosquitto addon, you can leave all the MQTT settings empty. If you **don't have** integrated MQTT broker in Home Assistant, you need to configure the MQTT settings to match your broker. (See MQTT Settings)
+- That's it! You can leave the rest of the settings as default.
 
-**Name:** Cache max age  
-**Description:**  
-The maximum age in seconds to cache data. The default is 5 seconds. Set to 0 to dissalow caching.
+### Exposing TeslaBleHttpProxy
+If you want to expose TeslaBleHttpProxy to external services (like `evcc`), you can configure the proxy port in `Configuration > Network > Show disabled ports` and then setting the port to an available value. The proxy dashboard will always be available via the Home Assistant Ingress panel, even if the port is not exposed.
 
-**Name:** Proxy port  
-**Description:**  
-The port on which the proxy will bind to. Default is 5667.
+### MQTT Settings
+If you are using the Home Assistant with integrated MQTT broker (e.g. Mosquitto addon), you can leave broker settings empty. Otherwise, configure the MQTT settings to match your broker. Because the addon runs in a separate container, you may need to use the broker's IP address instead of `localhost`.
+There is no need to configure the MQTT settings if you are using the default Home Assistant MQTT broker.
 
-**Name:** Poll interval  
-**Description**  
-The time in seconds to poll the vehicle for data. The default is 90 seconds.
+- **Host**: Address of your MQTT broker (default: HA MQTT service host)
+- **Port**: MQTT broker port (default: HA MQTT service port)
+- **Username**: MQTT username (default: HA addon user)
+- **Password**: MQTT password (default: HA addon password)
 
-**Name:** Poll interval while charging  
-**Description:**  
-The time in seconds to poll the vehicle for data while charging. The default is 20 seconds.
+### Bluetooth Adapter
+- Leave empty to use system default adapter (hci0)
+- Use `hciconfig` command to list available adapters, e.g. `hci1`
+- If your wanted adapter shows up in the Bluetooth integration in Home Assistant, it should work with this addon
+- There is no need to configure this setting if you are using the default adapter
 
-**Name:** Max charging amps  
-**Description:**  
-The upper limit for Charging amps input sensor, can be configured from 5A-48A. The default is 16 A.
+## Troubleshooting
 
-**Name:** MQTT host  
-**Description:**  
-The hostname or IP address of the MQTT broker.
+### Bluetooth Issues
+- Verify BlueZ is installed correctly
+- Check [Home Assistant Bluetooth requirements](https://www.home-assistant.io/integrations/bluetooth/#requirements-for-linux-systems)
 
-**Name:** MQTT port  
-**Description:**  
-The port of the MQTT broker. The default is 1883.
+### Connection Problems
+- Ensure the vehicle is within Bluetooth range
+- Verify key pairing was successful
+- Check MQTT broker is reachable from the addon
+  - Use the broker's IP address instead of localhost
+  - Verify MQTT credentials if authentication is enabled
 
-**Name:** MQTT username  
-**Description:**  
-The username to authenticate with the MQTT broker.
-
-**Name:** MQTT password  
-**Description:**  
-The password to authenticate with the MQTT broker.
-
-**Name:** MQTT QoS  
-**Description:**  
-The quality of service level to use for MQTT messages. The default is 0.
-
-**Name:** MQTT prefix  
-**Description:**  
-The prefix to use for MQTT topics. The default is `tb2m`. The prefix must only contain alphanumeric characters, dashes, and underscores.
-
-**Name:** Discovery prefix  
-**Description:**  
-The prefix to use for Home Assistant MQTT discovery topics. The default is `homeassistant`.
-
-**Name:** Log level  
-**Description:**  
-The log level to use. The default is `INFO`.
+## Support
+- Submit an issue on the [GitHub repository](https://github.com/Lenart12/TeslaBle2Mqtt-addon/issues). Please include logs with `DEBUG` log level and configuration details.

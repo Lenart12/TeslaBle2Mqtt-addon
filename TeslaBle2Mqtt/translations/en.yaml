@@ -14,10 +14,10 @@ configuration:
     name: Cache max age
     description: >-
       The maximum age in seconds to cache data. The default is 5 seconds. Set to 0 to disallow caching.
-  proxy_port:
-    name: Proxy port
+  bt_adapter:
+    name: Bluetooth adapter
     description: >-
-      The port to use for the proxy server. Default is 5667.
+      The Bluetooth adapter to use. See notes in Documentation tab.
   poll_interval:
     name: Poll interval
     description: >-
@@ -32,16 +32,16 @@ configuration:
       The upper limit for Charging amps input sensor, can be configured from 5A-48A. The default is 16 A.
   mqtt_host:
     name: MQTT host
-    description: The hostname or IP address of the MQTT broker.
+    description: The hostname or IP address of the MQTT broker. See notes in Documentation tab.
   mqtt_port:
     name: MQTT port
-    description: The port of the MQTT broker. The default is 1883.
+    description: The port of the MQTT broker. See notes in Documentation tab.
   mqtt_user:
     name: MQTT username
-    description: The username to authenticate with the MQTT broker.
+    description: The username to authenticate with the MQTT broker. See notes in Documentation tab.
   mqtt_pass:
     name: MQTT password
-    description: The password to authenticate with the MQTT broker.
+    description: The password to authenticate with the MQTT broker. See notes in Documentation tab.
   mqtt_qos:
     name: MQTT QoS
     description: The quality of service level to use for MQTT messages. The default is 0.
@@ -58,3 +58,6 @@ configuration:
   log_level:
     name: Log level
     description: The log level to use. The default is `INFO`.
+network:
+  5667/tcp: TeslaBleHttpProxy port
+ 

@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2025-02-12
+
+- Update TeslaBleHttpProxy to use BlueZ instead of raw sockets
+- Remove addon from host network
+- Reduce priviledges of the addon since they are not necesary anymore
+- Increase security with AppArmor 
+- Add Bluetooth adapter configuration option
+- Mqtt broker is now automatically configured if it is installed on the same instance
+- Update documentation
+- Remove `Full access` option as it is not needed anymore
+- Add censoring of logs for sensitive data
+
 ## [0.1.0] - 2025-02-09
 
 - Add `Time to charge limit` sensor
@@ -111,4 +123,4 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.1] - 2025-01-29
 
-- Initial version, this addon is created 
+- Initial version, this addon is created

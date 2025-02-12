@@ -1,28 +1,73 @@
 #!/usr/bin/with-contenv bashio
 
-# Check if port is already in use
-optProxyPort=$(bashio::config 'proxy_port' '5667')
+# Read options from the configuration
+optProxyPort=5667 # Internal port for the proxy
+optVins="$(bashio::config 'vins')"
+optBtAdapter="$(bashio::config 'bt_adapter' 'hci0')"
+optScanTimeout="$(bashio::config 'scan_timeout' '1')"
+optCacheMaxAge="$(bashio::config 'cache_max_age' '5')"
+optPollInterval="$(bashio::config 'poll_interval' '90')"
+optPollIntervalCharging="$(bashio::config 'poll_interval_charging' '20')"
+optMaxChargingAmps="$(bashio::config 'max_charging_amps' '16')"
+optMqttQos="$(bashio::config 'mqtt_qos' '0')"
+optMqttPrefix="$(bashio::config 'mqtt_prefix' 'tb2m')"
+optDiscoveryPrefix="$(bashio::config 'discovery_prefix' 'homeassistant')"
+optLogLevel="$(bashio::config 'log_level' 'INFO')"
 
-if netstat -tunl | grep -E ":$optProxyPort\b"; then
-    bashio::log.fatal "Port $optProxyPort is already in use"
-    exit 1
+# MQTT configuration
+if ! bashio::config.is_empty 'mqtt_host'; then
+    optMqttHost="$(bashio::config 'mqtt_host')"
+else
+    optMqttHost=$(bashio::services 'mqtt' 'host')
+fi
+if ! bashio::config.is_empty 'mqtt_port'; then
+    optMqttPort="$(bashio::config 'mqtt_port')"
+else
+    optMqttPort=$(bashio::services 'mqtt' 'port')
+fi
+if ! bashio::config.is_empty 'mqtt_user'; then
+    optMqttUser="$(bashio::config 'mqtt_user')"
+else
+    optMqttUser=$(bashio::services 'mqtt' 'username')
+fi
+if ! bashio::config.is_empty 'mqtt_pass'; then
+    optMqttPass="$(bashio::config 'mqtt_pass')"
+else
+    optMqttPass=$(bashio::services 'mqtt' 'password')
 fi
 
-# Read options from the configuration
-optVins=$(bashio::config 'vins')
-optScanTimeout=$(bashio::config 'scan_timeout' '1')
-optCacheMaxAge=$(bashio::config 'cache_max_age' '5')
-optPollInterval=$(bashio::config 'poll_interval' '90')
-optPollIntervalCharging=$(bashio::config 'poll_interval_charging' '20')
-optMaxChargingAmps=$(bashio::config 'max_charging_amps' '16')
-optMqttHost=$(bashio::config 'mqtt_host')
-optMqttPort=$(bashio::config 'mqtt_port' '1883')
-optMqttUser=$(bashio::config 'mqtt_user')
-optMqttPass=$(bashio::config 'mqtt_pass')
-optMqttQos=$(bashio::config 'mqtt_qos' '0')
-optMqttPrefix=$(bashio::config 'mqtt_prefix' 'tb2m')
-optDiscoveryPrefix=$(bashio::config 'discovery_prefix' 'homeassistant')
-optLogLevel=$(bashio::config 'log_level' 'INFO')
+function filter_logs() {
+    local sed_expr=""
+    while (( $# > 0 )); do
+        pattern=$(echo "$1" | sed 's/[\/&]/\\&/g')
+        replacement=$(echo "$2" | sed 's/[\/&]/\\&/g')
+        # Match and preserve delimiters using capture groups
+        sed_expr="${sed_expr}s/(\b|_|\W\[[;0-9]*m)${pattern}(\b|_)/\1${replacement}\2/g;"
+        shift 2
+    done
+
+    # Must do line by line to avoid buffering (sed -u is not available in BusyBox)
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        echo "$line" | sed -E "$sed_expr"
+    done
+
+    # sed -Eu "$sed_expr"
+}
+
+# Configuration for sensitive information filtering
+function filter_sensitive() {
+    local hidden_vins=""
+    for v in $optVins; do
+        # Keep [0:3] and [9:10] (model, year, manufacturer) and discard the rest
+        anonVin="$(echo $v | sed -E 's/(.{4}).{5}(.{2}).{6}/\1\2/')"
+        hidden_vins="$hidden_vins $v {VIN-$anonVin}"
+    done
+
+    filter_logs \
+        "$optMqttHost" "{MQTT-HOST}" \
+        "$optMqttPass" "{MQTT-PASS}" \
+        $hidden_vins
+}
 
 # Addon information
 selfRepo=$(bashio::addon.repository)
@@ -30,7 +75,6 @@ reportedVersion=$(bashio::addon.version)
 selfSlug=$(bashio::addons "self" "addons.self.slug" '.slug')
 
 # Ingress configuration
-ingressUrl=$(bashio::addon.ingress_entry)
 ingressPort=$(bashio::addon.ingress_port)
 configUrl="homeassistant://hassio/ingress/$selfSlug"
 
@@ -53,18 +97,15 @@ EOF
 
 bashio::log.info "Starting TeslaBle2Mqtt v$reportedVersion"
 
-bashio::log.info "VINs: $optVins"
-bashio::log.info "Slug: $selfSlug"
-bashio::log.info "Configuration url: $configUrl"
-bashio::log.info "Ingress url: $(bashio::addon.ingress_url)"
-bashio::log.info "Ingress ent: $(bashio::addon.ingress_entry)"
-bashio::log.info "Repo: $(bashio::addon.repository)"
-bashio::log.info "Hostname: $(bashio::addon.hostname)"
-
 mkdir -p /data/config/key
 
 # Set the color output for the logs
 export CLICOLOR_FORCE=1
+
+btAdapter=""
+if [ -n "$optBtAdapter" ] && [ "$optBtAdapter" != "null" ]; then
+    btAdapter="--btAdapter=$optBtAdapter"
+fi
 
 # Start the proxy
 /usr/local/bin/TeslaBleHttpProxy \
@@ -72,7 +113,8 @@ export CLICOLOR_FORCE=1
     --logLevel=$optLogLevel \
     --keys=/data/config/key \
     --cacheMaxAge=$optCacheMaxAge \
-    --httpListenAddress=":$optProxyPort" &
+    $btAdapter \
+    --httpListenAddress=":$optProxyPort" |& filter_sensitive &
 proxyPid=$!
 
 # Wait for the proxy to start
@@ -111,7 +153,7 @@ done
     --force-ansi-color \
     --log-prefix="tb2m" \
     --reset-discovery \
-    $vinOptions &
+    $vinOptions |& filter_sensitive &
 tb2mPid=$!
 
 # Wait for either process to exit
