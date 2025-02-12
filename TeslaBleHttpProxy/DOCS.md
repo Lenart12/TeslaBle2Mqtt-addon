@@ -1,25 +1,36 @@
-# Configuring TB2M
+# TeslaBleHttpProxy Documentation
 
-## Quick start guide
+## Overview
+This addon allows you to connect to your Tesla vehicle via Bluetooth Low Energy (BLE) and interact with it using the TeslaBleHttpProxy service.
 
-Install this addon and configure its settings according to their instructions and start the addon. When it is running open the web ui and follow the key-pairing instructions listed [here](https://github.com/wimaha/TeslaBleHttpProxy?tab=readme-ov-file#generate-key-for-vehicle). When you have successfuly added your keys restart the addon.
+## Requirements
+- BlueZ installed on the host system
+- Compatible Bluetooth adapter
 
-If you are having issues with bluetooth device not working, try the full access version of the addon.
+## Quick Start Guide
+1. Install the addon
+2. Configure the settings (see Configuration section)
+3. Start the addon
+4. Open the web UI and follow the [key-pairing instructions](https://github.com/wimaha/TeslaBleHttpProxy?tab=readme-ov-file#generate-key-for-vehicle)
+5. Restart the addon after successful key pairing
 
-## Configuration
+## Configuration notes
 
-**Name:** Cache max age  
-**Description:**  
-The maximum age in seconds to cache data. The default is 5 seconds. Set to 0 to disallow caching.
+### Bluetooth Adapter
+- Leave empty to use system default adapter (hci0)
+- Use `hciconfig` command to list available adapters, e.g. `hci1`
+- If your wanted adapter shows up in the Bluetooth integration in Home Assistant, it should work with this addon
+- There is no need to configure this setting if you are using the default adapter
 
-**Name:** Scan timeout  
-**Description:**  
-The time in seconds to scan for BLE devices. The default is 1 second. If a value of 0 is provided, the scan will run as long as it can.
+## Troubleshooting
 
-**Name:** Proxy port  
-**Description:**  
-The port on which the proxy will bind to. Default is 5667.
+### Bluetooth Issues
+- Verify BlueZ is installed correctly
+- Check [Home Assistant Bluetooth requirements](https://www.home-assistant.io/integrations/bluetooth/#requirements-for-linux-systems)
 
-**Name:** Log level  
-**Description:**  
-The log level to use. The default is `INFO`.
+### Connection Problems
+- Ensure the vehicle is within Bluetooth range
+- Verify key pairing was successful
+
+## Support
+- Submit an issue on the [GitHub repository](https://github.com/Lenart12/TeslaBle2Mqtt-addon/issues). Please include logs with `DEBUG` log level and configuration details.

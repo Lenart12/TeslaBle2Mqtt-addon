@@ -1,18 +1,11 @@
 #!/usr/bin/with-contenv bashio
 
-# Check if port is already in use
-optProxyPort=$(bashio::config 'proxy_port' '5667')
-
-if netstat -tunl | grep -E ":$optProxyPort\b"; then
-    bashio::log.fatal "Port $optProxyPort is already in use"
-    exit 1
-fi
-
 # Read options from the configuration
-optVins=$(bashio::config 'vins')
-optScanTimeout=$(bashio::config 'scan_timeout' '1')
-optLogLevel=$(bashio::config 'log_level' 'INFO')
-optCacheMaxAge=$(bashio::config 'cache_max_age' '5')
+optProxyPort=5667 # Internal port for the proxy
+optBtAdapter="$(bashio::config 'bt_adapter' 'hci0')"
+optScanTimeout="$(bashio::config 'scan_timeout' '1')"
+optLogLevel="$(bashio::config 'log_level' 'INFO')"
+optCacheMaxAge="$(bashio::config 'cache_max_age' '5')"
 
 # Addon information
 selfRepo=$(bashio::addon.repository)
@@ -20,9 +13,8 @@ reportedVersion=$(bashio::addon.version)
 selfSlug=$(bashio::addons "self" "addons.self.slug" '.slug')
 
 # Ingress configuration
-ingressUrl=$(bashio::addon.ingress_entry)
 ingressPort=$(bashio::addon.ingress_port)
-configUrl="/hassio/ingress/$selfSlug"
+configUrl="homeassistant://hassio/ingress/$selfSlug"
 
 # Ingress proxy
 mkdir -p /etc/nginx/http.d
@@ -46,11 +38,12 @@ nginx -c /etc/nginx/nginx.conf
 
 bashio::log.info "Starting TeslaBle2Mqtt v$reportedVersion"
 
-bashio::log.info "VINs: $optVins"
-bashio::log.info "Slug: $selfSlug"
-bashio::log.info "Configuration url: $configUrl"
-
 mkdir -p /data/config/key
+
+btAdapter=""
+if [ -n "$optBtAdapter" ] && [ "$optBtAdapter" != "null" ]; then
+    btAdapter="--btAdapter=$optBtAdapter"
+fi
 
 # Start the proxy
 /usr/local/bin/TeslaBleHttpProxy \
@@ -58,4 +51,5 @@ mkdir -p /data/config/key
     --logLevel=$optLogLevel \
     --keys=/data/config/key \
     --cacheMaxAge=$optCacheMaxAge \
+    $btAdapter \
     --httpListenAddress=":$optProxyPort"

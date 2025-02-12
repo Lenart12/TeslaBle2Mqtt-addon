@@ -4,15 +4,18 @@ configuration:
     name: Cache max age
     description: >-
       The maximum age in seconds to cache data. The default is 5 seconds. Set to 0 to disallow caching.
-  proxy_port:
-    name: Proxy port
-    description: >-
-      The port to use for the proxy server. Default is 5667.
   scan_timeout:
     name: Scan timeout
     description: >-
       The time in seconds to scan for BLE devices. The default is 1 second.
       If a value of 0 is provided, the scan will run as long as it can.
+  bt_adapter:
+    name: Bluetooth adapter
+    description: >-
+      The Bluetooth adapter to use. See notes in Documentation tab.
   log_level:
     name: Log level
     description: The log level to use. The default is `INFO`.
+network:
+  5667/tcp: TeslaBleHttpProxy port
+ 

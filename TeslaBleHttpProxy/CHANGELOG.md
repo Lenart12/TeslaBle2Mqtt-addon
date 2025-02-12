@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.0] - 2025-02-12
+
+- Update proxy to use BlueZ instead of raw sockets
+- Remove addon from host network
+- Reduce priviledges of the addon since they are not necesary anymore
+- Increase security with AppArmor 
+- Add Bluetooth adapter configuration option
+- Update documentation
+- Remove `Full access` option as it is not needed anymore
+
 ## [0.0.6] - 2025-02-08
 
 - Revert 0.0.5 as it was causing issues
