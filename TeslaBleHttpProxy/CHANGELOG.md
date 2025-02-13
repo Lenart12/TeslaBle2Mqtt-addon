@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2025-02-13
+
+- Fix deadlock on linux if bluetooth adapter was restarted during LE scan
+- Prevent canceled requests hanging until command fails
+- Additional debug logging
+
 ## [0.1.0] - 2025-02-12
 
 - Update proxy to use BlueZ instead of raw sockets
