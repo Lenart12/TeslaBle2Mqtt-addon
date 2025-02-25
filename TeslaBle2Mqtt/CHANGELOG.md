@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.3] - 2025-02-25
+
+- Handle Mqtt reconnections if connection is lost
+
 ## [0.2.2] - 2025-02-19
 
 - Fix deadlock on linux if bluetooth adapter was restarted during LE scan, again
