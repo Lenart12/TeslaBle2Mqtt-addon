@@ -12,7 +12,7 @@ RUN apk add --no-cache go git nginx && \
 # Build TeslaBleHttpProxy from source
 RUN git clone https://github.com/Lenart12/TeslaBleHttpProxy.git /build/TeslaBleHttpProxy \
     && cd /build/TeslaBleHttpProxy \
-    && git checkout 9fa1db78293eec41e74bcd9d19423400acabab9f \
+    && git checkout 2137d79a17ebfc7de64e5b5ab9af04e2abb472da \
     && go build -o /usr/local/bin/TeslaBleHttpProxy
     
 # Copy data for add-on
