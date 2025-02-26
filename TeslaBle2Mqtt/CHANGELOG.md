@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.5] - 2025-02-25
+
+- Rework poll interval and timeout handling to show less warnings
+- Add missing debug log when connection command is finished
+
 ## [0.2.4] - 2025-02-25
 
 - Improve Bluetooth stability on linux

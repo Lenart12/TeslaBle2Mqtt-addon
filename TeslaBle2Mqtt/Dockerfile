@@ -12,13 +12,13 @@ RUN apk add --no-cache go git nginx && \
 # Build TeslaBleHttpProxy from source
 RUN git clone https://github.com/Lenart12/TeslaBleHttpProxy.git /build/TeslaBleHttpProxy \
     && cd /build/TeslaBleHttpProxy \
-    && git checkout 2137d79a17ebfc7de64e5b5ab9af04e2abb472da \
+    && git checkout fdf944bdc4de6e375505a556c787d88da7291d16 \
     && go build -o /usr/local/bin/TeslaBleHttpProxy
 
 # Build TeslaBle2Mqtt from source
 RUN git clone https://github.com/Lenart12/TeslaBle2Mqtt.git /build/TeslaBle2Mqtt \
     && cd /build/TeslaBle2Mqtt \
-    && git checkout fc09d1979fdd204cc85578f405b8a8e890002a4f \
+    && git checkout acc602fb7dbc2c158ed2651dc9960af77a3ad86c \
     && go build -o /usr/local/bin/TeslaBle2Mqtt
 
     
