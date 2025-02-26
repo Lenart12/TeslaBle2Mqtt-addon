@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2025-02-25
+
+- Add missing debug log when connection command is finished
+
 ## [0.1.3] - 2025-02-25
 
 - Improve Bluetooth stability on linux
