@@ -14,6 +14,13 @@ configuration:
     name: Cache max age
     description: >-
       The maximum age in seconds to cache data. The default is 5 seconds. Set to 0 to disallow caching.
+  proxy_url:
+    name: Proxy URL
+    description: >-
+      The URL of the TeslaBleHttpProxy. This is required if you want to connect to an external TeslaBleHttpProxy.
+      If empty, the add-on will run its own instance of TeslaBleHttpProxy on this device.
+      If set, proxy port and Bluetooth adapter options will be ignored and internal proxy will not be started.
+      The URL must be in the format `http(s)://<host>:<port>`.
   bt_adapter:
     name: Bluetooth adapter
     description: >-
@@ -32,16 +39,16 @@ configuration:
       The upper limit for Charging amps input sensor, can be configured from 5A-48A. The default is 16 A.
   mqtt_host:
     name: MQTT host
-    description: The hostname or IP address of the MQTT broker. See notes in Documentation tab.
+    description: The hostname or IP address of the MQTT broker. If empty it will auto configure with HA. See notes in Documentation tab.
   mqtt_port:
     name: MQTT port
-    description: The port of the MQTT broker. See notes in Documentation tab.
+    description: The port of the MQTT broker. If empty it will auto configure with HA. See notes in Documentation tab.
   mqtt_user:
     name: MQTT username
-    description: The username to authenticate with the MQTT broker. See notes in Documentation tab.
+    description: The username to authenticate with the MQTT broker. If empty it will auto configure with HA. See notes in Documentation tab.
   mqtt_pass:
     name: MQTT password
-    description: The password to authenticate with the MQTT broker. See notes in Documentation tab.
+    description: The password to authenticate with the MQTT broker. If empty it will auto configure with HA. See notes in Documentation tab.
   mqtt_qos:
     name: MQTT QoS
     description: The quality of service level to use for MQTT messages. The default is 0.

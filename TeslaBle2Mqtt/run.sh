@@ -4,6 +4,7 @@
 optProxyPort=5667 # Internal port for the proxy
 optVins="$(bashio::config 'vins')"
 optBtAdapter="$(bashio::config 'bt_adapter' 'hci0')"
+optProxyUrl="$(bashio::config 'proxy_url' 'internal')"
 optScanTimeout="$(bashio::config 'scan_timeout' '1')"
 optCacheMaxAge="$(bashio::config 'cache_max_age' '5')"
 optPollInterval="$(bashio::config 'poll_interval' '90')"
@@ -78,6 +79,20 @@ selfSlug=$(bashio::addons "self" "addons.self.slug" '.slug')
 ingressPort=$(bashio::addon.ingress_port)
 configUrl="homeassistant://hassio/ingress/$selfSlug"
 
+if [ "$optProxyUrl" = "internal" ]; then
+    # Internal proxy URL
+    optProxyUrl="http://localhost:$optProxyPort"
+    startTbhp="true"
+else
+    # Custom proxy URL
+    if [[ ! $optProxyUrl =~ ^https?:// ]]; then
+        bashio::log.fatal "Invalid proxy URL: $optProxyUrl"
+        exit 1
+    fi
+
+    startTbhp="false"
+fi
+
 # Ingress proxy
 mkdir -p /etc/nginx/http.d
 cat <<EOF > /etc/nginx/http.d/ingress.conf
@@ -86,7 +101,7 @@ server {
     allow 172.30.32.2;
     deny all;
     location / {
-        proxy_pass http://localhost:$optProxyPort/;
+        proxy_pass $optProxyUrl;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
@@ -95,7 +110,7 @@ server {
 }
 EOF
 
-bashio::log.info "Starting TeslaBle2Mqtt v$reportedVersion"
+bashio::log.info "Starting TeslaBle2Mqtt addon v$reportedVersion"
 
 mkdir -p /data/config/key
 
@@ -107,22 +122,30 @@ if [ -n "$optBtAdapter" ] && [ "$optBtAdapter" != "null" ]; then
     btAdapter="--btAdapter=$optBtAdapter"
 fi
 
-# Start the proxy
-/usr/local/bin/TeslaBleHttpProxy \
-    --scanTimeout=$optScanTimeout \
-    --logLevel=$optLogLevel \
-    --keys=/data/config/key \
-    --cacheMaxAge=$optCacheMaxAge \
-    $btAdapter \
-    --httpListenAddress=":$optProxyPort" |& filter_sensitive &
-proxyPid=$!
+if [ "$startTbhp" = "true" ]; then
+    bashio::log.info "Starting internal TeslaBleHttpProxy on port $optProxyPort, using Bluetooth $optBtAdapter"
 
-# Wait for the proxy to start
-timeout 5 bash -c "until nc -z localhost $optProxyPort; do sleep 0.2; done"
-proxyOk=$?
-if [ $proxyOk -ne 0 ]; then
-    bashio::log.fatal "Failed to start proxy"
-    exit 1
+    # Start the proxy in the background
+    /usr/local/bin/TeslaBleHttpProxy \
+        --scanTimeout=$optScanTimeout \
+        --logLevel=$optLogLevel \
+        --keys=/data/config/key \
+        --cacheMaxAge=$optCacheMaxAge \
+        $btAdapter \
+        --httpListenAddress=":$optProxyPort" |& filter_sensitive &
+    proxyPid=$!
+
+    # Wait for the proxy to start
+    timeout 5 bash -c "until nc -z localhost $optProxyPort; do sleep 0.2; done"
+    proxyOk=$?
+    if [ $proxyOk -ne 0 ]; then
+        bashio::log.fatal "Failed to start proxy"
+        exit 1
+    fi
+else
+    # Use the external proxy URL
+    bashio::log.info "Using external proxy URL: $optProxyUrl"
+    proxyPid=""
 fi
 
 # Start nginx
@@ -135,8 +158,9 @@ for vin in $optVins; do
 done
 
 # Start TeslaBle2Mqtt
+bashio::log.info "Starting TeslaBle2Mqtt"
 /usr/local/bin/TeslaBle2Mqtt \
-    --proxy-host=http://localhost:$optProxyPort \
+    --proxy-host=$optProxyUrl \
     --poll-interval=$optPollInterval \
     --poll-interval-charging=$optPollIntervalCharging \
     --max-charging-amps=$optMaxChargingAmps \

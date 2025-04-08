@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.6] - 2025-02-25
+
+- Add option to use external TeslaBleHttpProxy instance instead
+
 ## [0.2.5] - 2025-02-25
 
 - Rework poll interval and timeout handling to show less warnings
