@@ -1,8 +1,9 @@
 #!/usr/bin/with-contenv bashio
 
 # Read options from the configuration
-optProxyPort=5667 # Internal port for the proxy
+optProxyPort="$(bashio::config 'proxy_port' '5667')" # Internal port for the proxy
 optBtAdapter="$(bashio::config 'bt_adapter' 'hci0')"
+optRawHci="$(bashio::config 'raw_hci' 'false')"
 optScanTimeout="$(bashio::config 'scan_timeout' '1')"
 optLogLevel="$(bashio::config 'log_level' 'INFO')"
 optCacheMaxAge="$(bashio::config 'cache_max_age' '5')"
@@ -36,17 +37,26 @@ EOF
 # Start nginx
 nginx -c /etc/nginx/nginx.conf
 
-bashio::log.info "Starting TeslaBle2Mqtt v$reportedVersion"
-
 mkdir -p /data/config/key
+
+if [ $optRawHci = "true" ]; then
+    TeslaBleHttpProxyBin=/usr/local/bin/TeslaBleHttpProxy
+    adapterInfo="using HCI"
+else
+    TeslaBleHttpProxyBin=/usr/local/bin/TeslaBleHttpProxy-BlueZ
+    adapterInfo="using BlueZ"
+fi
 
 btAdapter=""
 if [ -n "$optBtAdapter" ] && [ "$optBtAdapter" != "null" ]; then
     btAdapter="--btAdapter=$optBtAdapter"
+    adapterInfo="$adapterInfo ($optBtAdapter)"
 fi
 
+bashio::log.info "Starting TeslaBleHttpProxy v$reportedVersion $adapterInfo"
+
 # Start the proxy
-/usr/local/bin/TeslaBleHttpProxy \
+$TeslaBleHttpProxyBin \
     --scanTimeout=$optScanTimeout \
     --logLevel=$optLogLevel \
     --keys=/data/config/key \

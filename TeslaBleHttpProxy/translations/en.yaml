@@ -1,5 +1,9 @@
 ---
 configuration:
+  proxy_port:
+    name: Proxy port
+    description: >-
+      The port to use for TeslaBleHttpProxy. The default is 5667.
   cache_max_age:
     name: Cache max age
     description: >-
@@ -13,6 +17,10 @@ configuration:
     name: Bluetooth adapter
     description: >-
       The Bluetooth adapter to use. See notes in Documentation tab.
+  raw_hci:
+    name: Raw HCI
+    description: >-
+      Use raw HCI communication instead of BlueZ. See notes in Documentation tab.
   log_level:
     name: Log level
     description: The log level to use. The default is `INFO`.

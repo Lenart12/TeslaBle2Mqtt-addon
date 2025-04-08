@@ -1,12 +1,14 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: "Tesla Ble Http Proxy"
 description: "Control Tesla vehicles over BLE with Home assistant"
-version: "0.1.4"
+version: "0.2.0"
 slug: "tbhp"
 init: false
 apparmor: true
 url: https://github.com/wimaha/TeslaBleHttpProxy
 host_dbus: true
+host_network: true
+privileged: [NET_ADMIN]
 panel_icon: mdi:car-wireless
 discovery:
   - tbhp # TeslaBleHttpProxy
@@ -20,8 +22,8 @@ ingress: true
 ingress_port: 0
 schema:
   bt_adapter: match(^hci\d+$)?
+  raw_hci: bool?
+  proxy_port: port?
   cache_max_age: int?
   scan_timeout: int?
   log_level: list(DEBUG|INFO|WARN|ERROR|FATAL)?
-ports:
-  5667/tcp: 5667 # TeslaBleHttpProxy

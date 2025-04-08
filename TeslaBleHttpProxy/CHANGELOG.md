@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2025-04-08
+
+- Add option to use raw HCI mode
+- **[WARNING]**: To use raw sockets, host networking was enabled for the addon. Please check if any service is running on the same port as the addon.
+
 ## [0.1.4] - 2025-02-25
 
 - Add missing debug log when connection command is finished
