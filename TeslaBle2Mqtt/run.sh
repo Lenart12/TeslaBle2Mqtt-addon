@@ -122,19 +122,19 @@ if [ "$startTbhp" = "true" ]; then
 
     if [ $optRawHci = "true" ]; then
         TeslaBleHttpProxyBin=/usr/local/bin/TeslaBleHttpProxy
-        btAdapter=""
-        adapterInfo="using raw HCI (hci0)"
+        adapterInfo="using HCI"
     else
         TeslaBleHttpProxyBin=/usr/local/bin/TeslaBleHttpProxy-BlueZ
-        if [ -n "$optBtAdapter" ] && [ "$optBtAdapter" != "null" ]; then
-            btAdapter="--btAdapter=$optBtAdapter"
-            adapterInfo="using BlueZ $optBtAdapter"
-        else
-            btAdapter=""
-            adapterInfo="using BlueZ default adapter"
-        fi
+        adapterInfo="using BlueZ"
     fi
 
+    if [ -n "$optBtAdapter" ] && [ "$optBtAdapter" != "null" ]; then
+        btAdapter="--btAdapter=$optBtAdapter"
+        adapterInfo="$adapterInfo ($optBtAdapter)"
+    else
+        btAdapter=""
+        adapterInfo="$adapterInfo (default)"
+    fi
 
     bashio::log.info "Starting internal TeslaBleHttpProxy on port $optProxyPort $adapterInfo"
 

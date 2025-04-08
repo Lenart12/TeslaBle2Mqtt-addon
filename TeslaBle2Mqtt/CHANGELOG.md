@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.1] - 2025-04-08
+
+- Allow configuring the Bluetooth adapter in raw hci mode
+
 ## [0.3.0] - 2025-04-08
 
 - Add support for both BlueZ and raw sockets for Bluetooth connection

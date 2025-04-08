@@ -49,8 +49,6 @@ There is no need to configure the MQTT settings if you are using the default Hom
 - If you are experiencing issues with the Bluetooth adapter, you can try enabling raw HCI mode.
   This mode allows the addon to communicate directly with the Bluetooth adapter using raw HCI commands.
   However note that this will take over the Bluetooth adapter and other applications (like Home Assistant) will not be able to use it.
-  Also note that only the default adapter (hci0) is supported in this mode, so related settings will be ignored.
-- This mode is not recommended for most users and should only be used as a last resort.
 
 ## Troubleshooting
 
