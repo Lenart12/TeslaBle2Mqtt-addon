@@ -14,17 +14,23 @@ configuration:
     name: Cache max age
     description: >-
       The maximum age in seconds to cache data. The default is 5 seconds. Set to 0 to disallow caching.
-  proxy_url:
-    name: Proxy URL
+  proxy_port:
+    name: Proxy port
     description: >-
-      The URL of the TeslaBleHttpProxy. This is required if you want to connect to an external TeslaBleHttpProxy.
-      If empty, the add-on will run its own instance of TeslaBleHttpProxy on this device.
-      If set, proxy port and Bluetooth adapter options will be ignored and internal proxy will not be started.
-      The URL must be in the format `http(s)://<host>:<port>`.
+      The port to use for the internal TeslaBleHttpProxy. The default is 5667.
+      This option is ignored if external proxy is used.
+  proxy_url:
+    name: External proxy URL
+    description: >-
+      The URL of the external TeslaBleHttpProxy. See notes in Documentation tab.
   bt_adapter:
     name: Bluetooth adapter
     description: >-
       The Bluetooth adapter to use. See notes in Documentation tab.
+  raw_hci:
+    name: Raw HCI
+    description: >-
+      Use raw HCI communication instead of BlueZ. See notes in Documentation tab.
   poll_interval:
     name: Poll interval
     description: >-
@@ -65,6 +71,3 @@ configuration:
   log_level:
     name: Log level
     description: The log level to use. The default is `INFO`.
-network:
-  5667/tcp: TeslaBleHttpProxy port
- 

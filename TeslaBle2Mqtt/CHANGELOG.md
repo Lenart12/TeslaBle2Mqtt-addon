@@ -2,7 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.2.6] - 2025-02-25
+## [0.3.0] - 2025-04-08
+
+- Add support for both BlueZ and raw sockets for Bluetooth connection
+- **[WARNING]**: To use raw sockets, host networking was enabled for the addon. Please check if any service is running on the same port as the addon.
+
+## [0.2.6] - 2025-04-08
 
 - Add option to use external TeslaBleHttpProxy instance instead
 

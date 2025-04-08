@@ -9,10 +9,16 @@ RUN apk add --no-cache go git nginx && \
     mkdir -p /run/nginx && \
     rm -f /etc/nginx/http.d/default.conf
 
+# Build TeslaBleHttpProxy [BlueZ] from source
+RUN git clone https://github.com/Lenart12/TeslaBleHttpProxy.git /build/TeslaBleHttpProxy-BlueZ \
+    && cd /build/TeslaBleHttpProxy-BlueZ \
+    && git checkout dd527720bd0221f28dbc19e98e11c499e5836f06 \
+    && go build -o /usr/local/bin/TeslaBleHttpProxy-BlueZ
+
 # Build TeslaBleHttpProxy from source
 RUN git clone https://github.com/Lenart12/TeslaBleHttpProxy.git /build/TeslaBleHttpProxy \
     && cd /build/TeslaBleHttpProxy \
-    && git checkout fdf944bdc4de6e375505a556c787d88da7291d16 \
+    && git checkout 86cccb044e3d3175bdfbe07effeae8706146102a \
     && go build -o /usr/local/bin/TeslaBleHttpProxy
 
 # Build TeslaBle2Mqtt from source

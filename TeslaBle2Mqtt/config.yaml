@@ -1,12 +1,14 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: "Tesla Ble to Mqtt"
 description: "Application to monitor and control Tesla vehicles over BLE with Home assistant"
-version: "0.2.6"
+version: "0.3.0"
 slug: "tb2m"
 init: false
 apparmor: true
 url: https://github.com/Lenart12/TeslaBle2Mqtt-addon
 host_dbus: true
+host_network: true
+privileged: [NET_ADMIN]
 panel_icon: mdi:car-wireless
 services:
   - mqtt:want
@@ -31,8 +33,10 @@ schema:
   mqtt_user: str?
   mqtt_pass: password?
   mqtt_qos: list(0|1|2)?
+  proxy_port: port?
   proxy_url: str?
   bt_adapter: match(^hci\d+$)?
+  raw_hci: bool?
   scan_timeout: int?
   cache_max_age: int?
   poll_interval: int?
@@ -41,5 +45,3 @@ schema:
   mqtt_prefix: match(^[-\w\d_]+$)?
   discovery_prefix: str?
   log_level: list(DEBUG|INFO|WARN|ERROR|FATAL)?
-ports:
-  5667/tcp: null # TeslaBleHttpProxy

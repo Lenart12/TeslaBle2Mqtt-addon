@@ -1,9 +1,10 @@
 #!/usr/bin/with-contenv bashio
 
 # Read options from the configuration
-optProxyPort=5667 # Internal port for the proxy
+optProxyPort="$(bashio::config 'proxy_port' '5667')" # Internal port for the proxy
 optVins="$(bashio::config 'vins')"
 optBtAdapter="$(bashio::config 'bt_adapter' 'hci0')"
+optRawHci="$(bashio::config 'raw_hci' 'false')"
 optProxyUrl="$(bashio::config 'proxy_url' 'internal')"
 optScanTimeout="$(bashio::config 'scan_timeout' '1')"
 optCacheMaxAge="$(bashio::config 'cache_max_age' '5')"
@@ -112,21 +113,33 @@ EOF
 
 bashio::log.info "Starting TeslaBle2Mqtt addon v$reportedVersion"
 
-mkdir -p /data/config/key
 
 # Set the color output for the logs
 export CLICOLOR_FORCE=1
 
-btAdapter=""
-if [ -n "$optBtAdapter" ] && [ "$optBtAdapter" != "null" ]; then
-    btAdapter="--btAdapter=$optBtAdapter"
-fi
-
 if [ "$startTbhp" = "true" ]; then
-    bashio::log.info "Starting internal TeslaBleHttpProxy on port $optProxyPort, using Bluetooth $optBtAdapter"
+    mkdir -p /data/config/key
+
+    if [ $optRawHci = "true" ]; then
+        TeslaBleHttpProxyBin=/usr/local/bin/TeslaBleHttpProxy
+        btAdapter=""
+        adapterInfo="using raw HCI (hci0)"
+    else
+        TeslaBleHttpProxyBin=/usr/local/bin/TeslaBleHttpProxy-BlueZ
+        if [ -n "$optBtAdapter" ] && [ "$optBtAdapter" != "null" ]; then
+            btAdapter="--btAdapter=$optBtAdapter"
+            adapterInfo="using BlueZ $optBtAdapter"
+        else
+            btAdapter=""
+            adapterInfo="using BlueZ default adapter"
+        fi
+    fi
+
+
+    bashio::log.info "Starting internal TeslaBleHttpProxy on port $optProxyPort $adapterInfo"
 
     # Start the proxy in the background
-    /usr/local/bin/TeslaBleHttpProxy \
+    $TeslaBleHttpProxyBin \
         --scanTimeout=$optScanTimeout \
         --logLevel=$optLogLevel \
         --keys=/data/config/key \
