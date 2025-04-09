@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.2] - 2025-04-10
+
+- Add fast polling after vehicle discovery, wakes up or on command. By default it will poll faster
+  for 2 minutes. This can be configured in the settings.
+
 ## [0.3.1] - 2025-04-08
 
 - Allow configuring the Bluetooth adapter in raw hci mode

@@ -39,6 +39,10 @@ configuration:
     name: Poll interval while charging
     description: >-
       The time in seconds to poll the vehicle for data while charging. The default is 20 seconds.
+  fast_poll_time:
+    name: Fast poll time
+    description: >-
+      Time period in seconds after discovery, wakeup or command to do fast polling. The default is 120 seconds. (This is not another poll interval duration!)
   max_charging_amps:
     name: Max charging amps
     description: >-
