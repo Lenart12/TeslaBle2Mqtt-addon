@@ -39,6 +39,10 @@ configuration:
     name: Poll interval while charging
     description: >-
       The time in seconds to poll the vehicle for data while charging. The default is 20 seconds.
+  poll_interval_disconnected:
+    name: Poll interval while disconnected
+    description: >-
+      The time in seconds to scan for the vehicle while disconnected (away). The default is 10 seconds.
   fast_poll_time:
     name: Fast poll time
     description: >-

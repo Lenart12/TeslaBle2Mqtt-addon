@@ -10,6 +10,7 @@ optScanTimeout="$(bashio::config 'scan_timeout' '1')"
 optCacheMaxAge="$(bashio::config 'cache_max_age' '5')"
 optPollInterval="$(bashio::config 'poll_interval' '90')"
 optPollIntervalCharging="$(bashio::config 'poll_interval_charging' '20')"
+optPollIntervalDisconnected="$(bashio::config 'poll_interval_disconnected' '10')"
 optFastPollTime="$(bashio::config 'fast_poll_time' '120')"
 optMaxChargingAmps="$(bashio::config 'max_charging_amps' '16')"
 optMqttQos="$(bashio::config 'mqtt_qos' '0')"
@@ -194,6 +195,7 @@ bashio::log.info "Starting TeslaBle2Mqtt"
     --proxy-host=$optProxyUrl \
     --poll-interval=$optPollInterval \
     --poll-interval-charging=$optPollIntervalCharging \
+    --poll-interval-disconnected=$optPollIntervalDisconnected \
     --fast-poll-time=$optFastPollTime \
     --max-charging-amps=$optMaxChargingAmps \
     --log-level=$tb2mLogLevel \

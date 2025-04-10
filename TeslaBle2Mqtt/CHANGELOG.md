@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.4] - 2025-04-10
+
+- Add seperate poll interval for when the vehicle is disconnected (away).
+
 ## [0.3.3] - 2025-04-10
 
 - Fast polling adjustments and bugfixes
