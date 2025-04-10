@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.5] - 2025-04-10
+
+- Fix command line switch causing TB2M to not start
+
 ## [0.3.4] - 2025-04-10
 
 - Add seperate poll interval for when the vehicle is disconnected (away).
