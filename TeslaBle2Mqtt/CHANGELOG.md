@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.3] - 2025-04-10
+
+- Fast polling adjustments and bugfixes
+- Change logging to only show logs from TB2M. Internal TBHP will only show warnings and errors,
+  unless new `DEBUG_ALL` log level is set.
+
 ## [0.3.2] - 2025-04-10
 
 - Add fast polling after vehicle discovery, wakes up or on command. By default it will poll faster

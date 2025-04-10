@@ -74,4 +74,4 @@ configuration:
       `homeassistant`.
   log_level:
     name: Log level
-    description: The log level to use. The default is `INFO`.
+    description: The log level to use for TB2M. The default is `INFO`. (DEBUG_ALL will also show the output of the internal TeslaBleHttpProxy)

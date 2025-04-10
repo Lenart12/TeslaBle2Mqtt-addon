@@ -112,6 +112,23 @@ server {
 }
 EOF
 
+# Set the log level for the proxy and tb2m
+if [ "$optLogLevel" = "DEBUG_ALL" ]; then
+    tb2mLogLevel="DEBUG"
+    tb2mLogPrefix="--log-prefix=tb2m"
+    tbhpLogLevel="DEBUG"
+else
+    tb2mLogLevel="$optLogLevel"
+    tb2mLogPrefix=""
+    # If not DEBUG_ALL, tbhp log level is WARN or greater
+    if [ "$optLogLevel" = "ERROR" ] || [ "$optLogLevel" = "FATAL" ]; then
+        tbhpLogLevel="$optLogLevel"
+    else
+        tbhpLogLevel="WARN"
+    fi
+fi
+
+
 bashio::log.info "Starting TeslaBle2Mqtt addon v$reportedVersion"
 
 
@@ -142,7 +159,7 @@ if [ "$startTbhp" = "true" ]; then
     # Start the proxy in the background
     $TeslaBleHttpProxyBin \
         --scanTimeout=$optScanTimeout \
-        --logLevel=$optLogLevel \
+        --logLevel=$tbhpLogLevel \
         --keys=/data/config/key \
         --cacheMaxAge=$optCacheMaxAge \
         $btAdapter \
@@ -179,7 +196,7 @@ bashio::log.info "Starting TeslaBle2Mqtt"
     --poll-interval-charging=$optPollIntervalCharging \
     --fast-poll-time=$optFastPollTime \
     --max-charging-amps=$optMaxChargingAmps \
-    --log-level=$optLogLevel \
+    --log-level=$tb2mLogLevel \
     --mqtt-host=$optMqttHost \
     --mqtt-port=$optMqttPort \
     --mqtt-user=$optMqttUser \
@@ -190,7 +207,7 @@ bashio::log.info "Starting TeslaBle2Mqtt"
     --reported-version=$reportedVersion \
     --reported-config-url=$configUrl \
     --force-ansi-color \
-    --log-prefix="tb2m" \
+    $tb2mLogPrefix \
     --reset-discovery \
     $vinOptions |& filter_sensitive &
 tb2mPid=$!
