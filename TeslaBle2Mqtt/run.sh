@@ -43,10 +43,13 @@ fi
 function filter_logs() {
     local sed_expr=""
     while (( $# > 0 )); do
-        pattern=$(echo "$1" | sed 's/[\/&]/\\&/g')
-        replacement=$(echo "$2" | sed 's/[\/&]/\\&/g')
-        # Match and preserve delimiters using capture groups
-        sed_expr="${sed_expr}s/(\b|_|\W\[[;0-9]*m)${pattern}(\b|_)/\1${replacement}\2/g;"
+        if ! [ -z "$1" ]; then
+            pattern=$(echo "$1" | sed 's/[\/&]/\\&/g')
+            replacement=$(echo "$2" | sed 's/[\/&]/\\&/g')
+            # Match and preserve delimiters using capture groups
+            sed_expr="${sed_expr}s/(\b|_|\W\[[;0-9]*m)${pattern}(\b|_)/\1${replacement}\2/g;"
+        fi
+
         shift 2
     done
 

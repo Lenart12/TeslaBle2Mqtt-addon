@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.6] - 2025-04-11
+
+- Fix log filtering if a sensitive value is set to empty string
+
 ## [0.3.5] - 2025-04-10
 
 - Fix command line switch causing TB2M to not start
