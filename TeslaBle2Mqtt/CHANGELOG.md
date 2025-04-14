@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.7] - 2025-04-14
+
+- Reduce warnings when a command is issued and polling is expectedly canceled
+- Update Documentation
+
 ## [0.3.6] - 2025-04-11
 
 - Fix log filtering if a sensitive value is set to empty string
