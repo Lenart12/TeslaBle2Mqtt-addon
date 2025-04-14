@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2025-04-14
+
+- Reduce warnings when a command is expectedly canceled
+
 ## [0.2.0] - 2025-04-08
 
 - Add option to use raw HCI mode
