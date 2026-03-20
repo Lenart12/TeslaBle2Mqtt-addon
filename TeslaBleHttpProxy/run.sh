@@ -31,8 +31,20 @@ server {
     listen $ingressPort;
     allow 172.30.32.2;
     deny all;
+
+    # Root shows dashboard
+    location = / {
+        proxy_pass http://localhost:$optProxyPort/dashboard;
+        proxy_http_version 1.1;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+
+    # All other paths
     location / {
-        proxy_pass http://localhost:$optProxyPort/;
+        proxy_pass http://localhost:$optProxyPort;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection "upgrade";
