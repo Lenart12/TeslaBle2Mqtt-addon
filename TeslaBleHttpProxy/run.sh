@@ -31,19 +31,24 @@ server {
     listen $ingressPort;
     allow 172.30.32.2;
     deny all;
+
+    # Redirect root to dashboard
     location = / {
-        proxy_pass http://localhost:$optProxyPort/dashboard;
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
+        return 302 /dashboard;
     }
+
+    # Proxy all other requests
     location / {
         proxy_pass http://localhost:$optProxyPort;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection "upgrade";
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_set_header X-Forwarded-Host \$host;
+        proxy_set_header X-Forwarded-Port \$server_port;
     }
 }
 EOF
