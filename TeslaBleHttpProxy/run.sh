@@ -32,7 +32,11 @@ server {
     allow 172.30.32.2;
     deny all;
     location = / {
-        return 301 /dashboard;
+        proxy_pass http://localhost:$optProxyPort/dashboard;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
     }
     location / {
         proxy_pass http://localhost:$optProxyPort;
