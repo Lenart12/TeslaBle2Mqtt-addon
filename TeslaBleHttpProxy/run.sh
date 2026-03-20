@@ -6,6 +6,7 @@ optScanTimeout="$(bashio::config 'scan_timeout' '5')"
 optLogLevel="$(bashio::config 'log_level' 'info')"
 optCacheMaxAge="$(bashio::config 'cache_max_age' '5')"
 optVehicleDataCacheTime="$(bashio::config 'vehicle_data_cache_time' '30')"
+optExternalHostname="$(bashio::config 'external_hostname' 'homeassistant.local')"
 
 # Deprecated options (kept for backward compatibility, but ignored)
 if bashio::config.exists 'bt_adapter'; then
@@ -42,7 +43,7 @@ server {
         proxy_set_header X-Forwarded-Proto \$scheme;
 
         # Rewrite logs link to open in new tab with direct URL
-        sub_filter '<a href="/logs"' '<a href="http://192.168.2.202:$optProxyPort/logs" target="_blank"';
+        sub_filter '<a href="/logs"' '<a href="http://$optExternalHostname:$optProxyPort/logs" target="_blank"';
         sub_filter_once off;
         sub_filter_types text/html;
     }
