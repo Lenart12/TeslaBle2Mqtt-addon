@@ -45,6 +45,12 @@ This addon allows you to connect to your Tesla vehicle via Bluetooth Low Energy 
 - Options: debug, info, warn, error, fatal
 - Set to debug for detailed troubleshooting information
 
+### External Hostname
+- Default: homeassistant.local
+- The hostname or IP address used for external links (like "View Logs")
+- Set this to your Home Assistant's IP address or hostname if `homeassistant.local` doesn't work
+- Example: `192.168.1.100` or `ha.mydomain.com`
+
 ### Key Roles (Security)
 The addon supports role-based key system:
 - **Charging Manager** (Recommended): Limited access for charging management, works perfectly with evcc
