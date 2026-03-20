@@ -7,6 +7,14 @@ optLogLevel="$(bashio::config 'log_level' 'info')"
 optCacheMaxAge="$(bashio::config 'cache_max_age' '5')"
 optVehicleDataCacheTime="$(bashio::config 'vehicle_data_cache_time' '30')"
 
+# Deprecated options (kept for backward compatibility, but ignored)
+if bashio::config.exists 'bt_adapter'; then
+    bashio::log.warning "The 'bt_adapter' option is deprecated and no longer used. BlueZ handles adapter selection automatically."
+fi
+if bashio::config.exists 'raw_hci'; then
+    bashio::log.warning "The 'raw_hci' option is deprecated and no longer used. The addon now uses BlueZ by default."
+fi
+
 # Addon information
 selfRepo=$(bashio::addon.repository)
 reportedVersion=$(bashio::addon.version)
@@ -23,8 +31,11 @@ server {
     listen $ingressPort;
     allow 172.30.32.2;
     deny all;
+    location = / {
+        return 301 /dashboard;
+    }
     location / {
-        proxy_pass http://localhost:$optProxyPort/;
+        proxy_pass http://localhost:$optProxyPort;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
@@ -48,7 +59,7 @@ export cacheMaxAge="$optCacheMaxAge"
 export vehicleDataCacheTime="$optVehicleDataCacheTime"
 export httpListenAddress=":$optProxyPort"
 
-# Change to key directory for the proxy
+# Change to config directory (contains key directory) for the proxy
 cd /data/config
 
 # Start the proxy

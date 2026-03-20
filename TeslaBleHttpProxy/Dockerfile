@@ -10,9 +10,10 @@ RUN apk add --no-cache go git nginx && \
     rm -f /etc/nginx/http.d/default.conf
 
 # Build TeslaBleHttpProxy from source (version 2.3.0)
+# Pinned to commit SHA for reproducibility (tag: 2.3.0)
 RUN git clone https://github.com/wimaha/TeslaBleHttpProxy.git /build/TeslaBleHttpProxy \
     && cd /build/TeslaBleHttpProxy \
-    && git checkout 2.3.0 \
+    && git checkout b56ffed9cc645fd363c99f067ac2b37233f0f963 \
     && go build -o /usr/local/bin/TeslaBleHttpProxy
     
 # Copy data for add-on

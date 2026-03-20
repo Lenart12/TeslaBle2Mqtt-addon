@@ -11,8 +11,9 @@ This addon allows you to connect to your Tesla vehicle via Bluetooth Low Energy 
 1. Install the addon
 2. Configure the settings (see Configuration section)
 3. Start the addon
-4. Open the web UI and follow the [key-pairing instructions](https://github.com/wimaha/TeslaBleHttpProxy?tab=readme-ov-file#generate-key-for-vehicle)
-5. Restart the addon after successful key pairing
+4. Open the web UI through Home Assistant (Settings → Add-ons → Tesla Ble Http Proxy → Open Web UI)
+5. Follow the [key-pairing instructions](https://github.com/wimaha/TeslaBleHttpProxy?tab=readme-ov-file#generate-key-for-vehicle) in the dashboard
+6. The addon will automatically use your paired keys
 
 ## Configuration notes
 

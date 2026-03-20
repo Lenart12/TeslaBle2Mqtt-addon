@@ -4,14 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [2.3.0] - 2026-03-19
 
-- Update to upstream wimaha/TeslaBleHttpProxy version 2.3.0
+- Update to upstream wimaha/TeslaBleHttpProxy version 2.3.0 (pinned to commit SHA for reproducibility)
 - Add support for role-based key system (Owner and Charging Manager roles)
 - Add `vehicle_data_cache_time` configuration option (default: 30 seconds)
 - Switch from command-line flags to environment variable configuration
-- Remove deprecated `bt_adapter` and `raw_hci` options (BlueZ is now used by default)
+- Add automatic redirect from ingress root to /dashboard
+- Deprecate `bt_adapter` and `raw_hci` options (kept for backward compatibility but no longer used)
 - Improve security with role-based access control
 - Update log level values to lowercase format (debug, info, warn, error, fatal)
 - Update default `scan_timeout` from 1 to 5 seconds
+- Update documentation to use Home Assistant ingress instructions
 
 ## [0.2.1] - 2025-04-14
 
