@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.1] - 2026-03-19
+
+- Add backward compatibility for deprecated bt_adapter and raw_hci options
+- Pin Dockerfile to commit SHA for build reproducibility
+- Fix automatic redirect from ingress root to /dashboard for better UX
+- Update documentation to use Home Assistant ingress instructions
+- Address all PR review feedback
+
 ## [2.3.0] - 2026-03-19
 
 - Update to upstream wimaha/TeslaBleHttpProxy version 2.3.0 (pinned to commit SHA for reproducibility)
