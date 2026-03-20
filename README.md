@@ -6,7 +6,7 @@ This repository contains the Tesla Ble to Mqtt Homeassistant addon. Tesla Ble to
 
 It also contains Tesla Ble Http Proxy addon for users that only want the proxy for `evcc` or other applications without the Mqtt part.
 
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/Lenart12/TeslaBle2Mqtt-addon)
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/Speednik2/TeslaBle2Mqtt-addon)
 
 <p>
   <img src="https://github.com/user-attachments/assets/6870823b-899b-4706-bfb8-272f8deb32f6" align="top" style="width: 30%">
