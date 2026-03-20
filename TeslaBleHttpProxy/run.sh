@@ -42,9 +42,9 @@ server {
         proxy_set_header X-Forwarded-Proto \$scheme;
     }
 
-    # All other paths
-    location / {
-        proxy_pass http://localhost:$optProxyPort;
+    # All paths must be explicitly proxied
+    location ~ ^/(dashboard|logs|api|static|gen_keys|remove_keys|add_key_to_vehicle|switch_role) {
+        proxy_pass http://localhost:$optProxyPort\$request_uri;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection "upgrade";
