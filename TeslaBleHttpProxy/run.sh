@@ -40,6 +40,11 @@ server {
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto \$scheme;
+
+        # Rewrite logs link to open in new tab with direct URL
+        sub_filter '<a href="/logs"' '<a href="http://192.168.2.202:$optProxyPort/logs" target="_blank"';
+        sub_filter_once off;
+        sub_filter_types text/html;
     }
 
     # All paths must be explicitly proxied
