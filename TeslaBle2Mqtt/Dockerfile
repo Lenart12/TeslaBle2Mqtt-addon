@@ -1,6 +1,10 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
-ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM ghcr.io/home-assistant/base:latest
+
+LABEL \
+    io.hass.version="v0.3.8" \
+    io.hass.type="app" \
+    io.hass.arch="aarch64|amd64"
 
 WORKDIR /build
 

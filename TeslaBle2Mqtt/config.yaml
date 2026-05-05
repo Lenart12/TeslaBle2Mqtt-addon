@@ -1,7 +1,7 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: "Tesla Ble to Mqtt"
 description: "Application to monitor and control Tesla vehicles over BLE with Home assistant"
-version: "0.3.7"
+version: "0.3.8"
 slug: "tb2m"
 init: false
 apparmor: true
