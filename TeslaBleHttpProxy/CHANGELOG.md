@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.2] - 2026-05-05
+
+- Update the build base image to the latest HA version to fix compilation issues
+
 ## [0.2.1] - 2025-04-14
 
 - Reduce warnings when a command is expectedly canceled
